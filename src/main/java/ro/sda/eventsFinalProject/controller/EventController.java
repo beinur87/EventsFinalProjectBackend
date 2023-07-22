@@ -20,6 +20,7 @@ public class EventController {
     public EventController(EventService eventService) {
         this.eventService = eventService;
     }
+
     @PostMapping("/events")
     public ResponseEntity createEvent(@RequestBody Event event) {
         try {
@@ -31,21 +32,35 @@ public class EventController {
     }
 
     @GetMapping("/events/{id}")
-    public ResponseEntity readEvent(@PathVariable(name="id") Integer eventId) {
+    public ResponseEntity readEvent(@PathVariable(name = "id") Integer eventId) {
         try {
-                Event readEvent=eventService.readEvent(eventId);
-                return new ResponseEntity(readEvent, HttpStatus.OK);
+            Event readEvent = eventService.readEvent(eventId);
+            return new ResponseEntity(readEvent, HttpStatus.OK);
 
-        } catch (IllegalArgumentException e)  {
+        } catch (IllegalArgumentException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
-            }
+        }
     }
 
     @GetMapping("/events")
-    public ResponseEntity readAllEvents(){
+    public ResponseEntity readAllEvents() {
         List<Event> events = eventService.readAllEvents();
-        return new ResponseEntity(events,HttpStatus.OK);
+        return new ResponseEntity(events, HttpStatus.OK);
 
     }
 
+    @PutMapping("events/{id}")
+    public ResponseEntity updateEvent(@PathVariable(name = "id") Integer pathId, @RequestBody Event eventToUpdate) {
+        if (!pathId.equals(eventToUpdate.getId())) {
+            return new ResponseEntity<>("Inconsistent id's!!!", HttpStatus.BAD_REQUEST);
+        }
+        try {
+            Event updatedEvent = eventService.updateEvent(eventToUpdate);
+            return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST)
+        }
+
+
+    }
 }

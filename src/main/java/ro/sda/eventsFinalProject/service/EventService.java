@@ -48,4 +48,12 @@ public class EventService {
 
     }
 
+    public Event updateEvent(Event updatedEvent){
+
+        // Aici verificam ca exista un event cu id-ul dat!
+        Event eventToUpdate = readEvent(updatedEvent.getId());
+        //Aici salvam(cu toate verificarile de rigoare) evenimentul din baza de date
+        return eventRepository.save(updatedEvent);
+    }
+
 }
