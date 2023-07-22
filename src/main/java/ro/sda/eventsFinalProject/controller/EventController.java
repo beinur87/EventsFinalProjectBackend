@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ro.sda.eventsFinalProject.model.Event;
 import ro.sda.eventsFinalProject.service.EventService;
 
+import java.util.List;
+
 
 @RestController
 @Service
@@ -35,10 +37,14 @@ public class EventController {
                 return new ResponseEntity(readEvent, HttpStatus.OK);
 
         } catch (IllegalArgumentException e)  {
-            return new IllegalArgumentException(e.getMessage){
-
-        }
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+            }
     }
+
+    @GetMapping("/events")
+    public ResponseEntity readAllEvents(){
+        List<Event> events = eventService.readAllEvents();
+        return new ResponseEntity(events,HttpStatus.OK);
 
     }
 
