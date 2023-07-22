@@ -26,4 +26,17 @@ public class EventService {
         Event savedEvent = eventRepository.save(event);
         return savedEvent;
     }
+
+    public Event readEvent(Integer id) {
+        if (id==null){
+            throw new IllegalArgumentException("Event ID must not be null!");
+        }
+        Event event=eventRepository.findById(id).orElse(null);
+        if (event==null) {
+            throw new IllegalArgumentException("There is no event with id: " + id);
+        }
+        return event;
+        }
+    }
+
 }

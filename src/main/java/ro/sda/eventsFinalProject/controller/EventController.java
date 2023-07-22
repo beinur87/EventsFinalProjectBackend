@@ -3,9 +3,7 @@ package ro.sda.eventsFinalProject.controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ro.sda.eventsFinalProject.model.Event;
 import ro.sda.eventsFinalProject.service.EventService;
 
@@ -24,10 +22,24 @@ public class EventController {
     public ResponseEntity createEvent(@RequestBody Event event) {
         try {
             Event savedEvent = eventService.saveEvent(event);
-            return new ResponseEntity<>(savedEvent, HttpStatus.OK);
+            return new ResponseEntity(savedEvent, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/events/{id}")
+    public ResponseEntity readEvent(@PathVariable(name="id") Integer eventId) {
+        try {
+                Event readEvent=eventService.readEvent(eventId);
+                return new ResponseEntity(readEvent, HttpStatus.OK);
+
+        } catch (IllegalArgumentException e)  {
+            return new IllegalArgumentException(e.getMessage){
+
+        }
+    }
+
     }
 
 }
