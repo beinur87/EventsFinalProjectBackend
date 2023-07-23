@@ -58,9 +58,19 @@ public class EventController {
             Event updatedEvent = eventService.updateEvent(eventToUpdate);
             return new ResponseEntity<>(updatedEvent, HttpStatus.OK);
         } catch (IllegalArgumentException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST)
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
-
     }
+
+    @DeleteMapping("/events/id")
+    public ResponseEntity delete(@PathVariable Integer id) {
+        try {
+            eventService.deleteEvent(id);
+            return new ResponseEntity("Event deleted sucessfully", HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
+

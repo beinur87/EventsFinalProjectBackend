@@ -56,4 +56,10 @@ public class EventService {
         return eventRepository.save(updatedEvent);
     }
 
+    public void deleteEvent(Integer eventId){
+
+        Event eventToDelete = readEvent(eventId);
+        eventRepository.delete(eventToDelete);
+    }
+
 }
