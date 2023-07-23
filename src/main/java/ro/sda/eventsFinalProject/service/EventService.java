@@ -18,11 +18,17 @@ public class EventService {
     }
 
     public Event saveEvent(Event event) {
+
+        if (event.getName() == null) {
+            // Avoids the generation of NullPointerException for null event names !
+            throw new IllegalArgumentException("An event must have a body!");
+        }
+
         if (event.getName() == null) {
             // Avoids the generation of NullPointerException for null event names !
             throw new IllegalArgumentException("An event must have a name!");
         }
-        if (event.getStartDate() == null || event.getEndDate()==null || event.getStartDate().isAfter(event.getEndDate())) {
+        if (event.getStartDate() == null || event.getEndDate() == null || event.getStartDate().isAfter(event.getEndDate())) {
             // Avoids the generation of NullPointerException for null dates !
             throw new IllegalArgumentException("Event start date is after its end date. Please be careful!");
         }
@@ -31,35 +37,40 @@ public class EventService {
     }
 
     public Event readEvent(Integer id) {
-        if (id==null){
+        if (id == null) {
             throw new IllegalArgumentException("Event ID must not be null!");
         }
-        Event event=eventRepository.findById(id).orElse(null);
-        if (event==null) {
+        Event event = eventRepository.findById(id).orElse(null);
+        if (event == null) {
             throw new IllegalArgumentException("There is no event with id: " + id);
         }
         return event;
-        }
+    }
 
-        public List<Event> readAllEvents(){
+    public List<Event> readAllEvents() {
 
         List<Event> events = new ArrayList<>();
         return eventRepository.findAll();
 
     }
 
-    public Event updateEvent(Event updatedEvent){
+    public Event updateEvent(Event updatedEvent) {
 
+        if (updatedEvent.getName() == null) {
+            // Avoids the generation of NullPointerException for null event names !
+            throw new IllegalArgumentException("An event must have a body!");
+        }
         // Aici verificam ca exista un event cu id-ul dat!
         Event eventToUpdate = readEvent(updatedEvent.getId());
         //Aici salvam(cu toate verificarile de rigoare) evenimentul din baza de date
         return eventRepository.save(updatedEvent);
     }
 
-    public void deleteEvent(Integer eventId){
+    public void deleteEvent(Integer eventId) {
 
         Event eventToDelete = readEvent(eventId);
         eventRepository.delete(eventToDelete);
     }
 
 }
+

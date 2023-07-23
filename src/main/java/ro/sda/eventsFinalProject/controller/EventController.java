@@ -23,6 +23,9 @@ public class EventController {
 
     @PostMapping("/events")
     public ResponseEntity createEvent(@RequestBody Event event) {
+        if (event.getId()!=null) {
+            return new ResponseEntity("Event id must be empty!", HttpStatus.BAD_REQUEST);
+        }
         try {
             Event savedEvent = eventService.saveEvent(event);
             return new ResponseEntity(savedEvent, HttpStatus.OK);
@@ -62,7 +65,7 @@ public class EventController {
         }
     }
 
-    @DeleteMapping("/events/id")
+    @DeleteMapping("/events/{id}")
     public ResponseEntity delete(@PathVariable Integer id) {
         try {
             eventService.deleteEvent(id);
