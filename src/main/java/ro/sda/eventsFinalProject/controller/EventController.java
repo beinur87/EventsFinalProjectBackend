@@ -69,7 +69,7 @@ public class EventController {
     public ResponseEntity delete(@PathVariable Integer id) {
         try {
             eventService.deleteEvent(id);
-            return new ResponseEntity("Event deleted sucessfully", HttpStatus.OK);
+            return new ResponseEntity("Event deleted sucessfully!", HttpStatus.OK);
         } catch (IllegalArgumentException e) {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
