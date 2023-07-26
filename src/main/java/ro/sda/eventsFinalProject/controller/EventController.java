@@ -18,7 +18,7 @@ public class EventController {
     private EventService eventService;
 
     public EventController(EventService eventService) {
-        this.eventService = eventService;
+                this.eventService = eventService;
     }
 
     @PostMapping("/events")
