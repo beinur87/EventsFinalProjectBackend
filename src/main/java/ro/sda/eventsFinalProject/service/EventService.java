@@ -19,7 +19,7 @@ public class EventService {
 
     public Event saveEvent(Event event) {
 
-        if (event.getName() == null) {
+        if (event == null) {
             // Avoids the generation of NullPointerException for null event names !
             throw new IllegalArgumentException("An event must have a body!");
         }
@@ -28,9 +28,11 @@ public class EventService {
             // Avoids the generation of NullPointerException for null event names !
             throw new IllegalArgumentException("An event must have a name!");
         }
-        if (event.getStartDate() == null || event.getEndDate() == null || event.getStartDate().isAfter(event.getEndDate())) {
+        if (event.getStartDate() == null || event.getEndDate() == null ||
+                event.getStartDate().isAfter(event.getEndDate())) {
             // Avoids the generation of NullPointerException for null dates !
-            throw new IllegalArgumentException("Event start date is after its end date. Please be careful!");
+            throw new IllegalArgumentException("Event start date is after its end date." +
+                    " Please be careful!");
         }
         Event savedEvent = eventRepository.save(event);
         return savedEvent;
@@ -38,11 +40,17 @@ public class EventService {
 
     public Event readEvent(Integer id) {
         if (id == null) {
-            throw new IllegalArgumentException("Event ID must not be null!");
+            throw new IllegalArgumentException("Events id must not be null!");
         }
+        // orElse (object the OtherValue)
+        // if (this.value != null
+        //     return this.value
+        // else
+        //     return theOtherValue
+
         Event event = eventRepository.findById(id).orElse(null);
         if (event == null) {
-            throw new IllegalArgumentException("There is no event with id: " + id);
+            throw new IllegalArgumentException("There it is no event with " + id);
         }
         return event;
     }
@@ -56,7 +64,7 @@ public class EventService {
 
     public Event updateEvent(Event updatedEvent) {
 
-        if (updatedEvent.getName() == null) {
+        if (updatedEvent == null) {
             // Avoids the generation of NullPointerException for null event names !
             throw new IllegalArgumentException("An event must have a body!");
         }

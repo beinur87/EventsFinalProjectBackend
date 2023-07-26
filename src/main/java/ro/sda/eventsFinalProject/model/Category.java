@@ -6,30 +6,20 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 
-public class Event {
+public class Category {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(name = "start_date")
-    private LocalDateTime startDate;
-
-    @Column(name = "end_date")
-    private LocalDateTime endDate;
-
-    private String description;
-
-    private String location;
 
 }
