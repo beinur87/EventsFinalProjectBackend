@@ -11,7 +11,6 @@ import java.util.List;
 
 
 @RestController
-@Service
 
 public class EventController {
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@Service
+
 public class CategoryController {
 
     private CategoryService categoryService;
@@ -20,7 +20,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @PostMapping("/categories")
+    @PostMapping("/category")
     public ResponseEntity createCategory(@RequestBody Category category) {
         if (category.getId() != null) {
             return new ResponseEntity("Category id must be empty!", HttpStatus.BAD_REQUEST);
@@ -42,13 +42,13 @@ public class CategoryController {
             return new ResponseEntity(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-    @GetMapping("/categories")
+    @GetMapping("/category")
     public ResponseEntity readAllCategories(){
         List<Category> categories= categoryService.readAllCategories();
         return new ResponseEntity(categories,HttpStatus.OK);
     }
 
-    @PutMapping("/categories/{id}")
+    @PutMapping("/category/{id}")
     public ResponseEntity updateCategory(@PathVariable Integer id, @RequestBody Category categoryToUpdate){
         if(!id.equals(categoryToUpdate.getId())){
             return new ResponseEntity<>("Inconsistent id's!!!", HttpStatus.BAD_REQUEST);
@@ -60,7 +60,7 @@ public class CategoryController {
         }
     }
 
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/category/{id}")
     public ResponseEntity deleteCategory(@PathVariable Integer id){
         try{
             categoryService.deleteCategory(id);
