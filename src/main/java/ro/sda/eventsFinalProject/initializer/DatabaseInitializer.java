@@ -39,9 +39,40 @@ public class DatabaseInitializer {
                 "https://cdn.pixabay.com/photo/2019/08/13/08/48/bucuresti-4402855_1280.jpg"
         );
 
+        Event e3 = new Event (null,
+                "Instalatie de arta contemporana",
+                LocalDateTime.of(2023, 1, 1, 8 ,0,0),
+                LocalDateTime.of(2023,12, 31, 23, 59, 00),
+                "Arts and culture",
+                "Timisoara",
+                "https://tinyurl.com/mvpk5u97"
+        );
+
+        Event e4 = new Event (null,
+                "Sarbatoarea Castanelor",
+                LocalDateTime.of(2023, 9, 27, 8 ,0,0),
+                LocalDateTime.of(2023,9, 30, 23, 59, 00),
+                "Concert si foc de artificii",
+                "Baia Mare",
+                "https://tinyurl.com/mvpk5u97"
+        );
+
+        Event e5 = new Event (null,
+                "Orgile Cetatii",
+                LocalDateTime.of(2023, 6, 28, 20 ,0,0),
+                LocalDateTime.of(2023,9, 06, 23, 59, 00),
+                "Festival de muzica",
+                "Timisoara",
+                "https://tinyurl.com/mvpk5u97"
+        );
 
         eventService.saveEvent(e1);
         eventService.saveEvent(e2);
+        eventService.saveEvent(e3);
+        eventService.saveEvent(e4);
+        eventService.saveEvent(e5);
+
+
 
     }
 
